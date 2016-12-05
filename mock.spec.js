@@ -1,10 +1,10 @@
 import test from 'ava'
 import R from 'ramda'
 import { serve } from './mock'
-import simpleContract from './simple-contract'
+import simpleContract from './contracts/simple'
 
 test.cb('returns simple mock responses', t => {
-  const server = serve('./simple-contract')
+  const server = serve('./contracts/simple')
 
   return server.inject('/api/simple', res => {
     t.is(res.statusCode, 200)
@@ -14,7 +14,7 @@ test.cb('returns simple mock responses', t => {
 })
 
 test.cb('returns custom status code', t => {
-  const server = serve('./simple-status-contract')
+  const server = serve('./contracts/simple-status')
 
   return server.inject('/api/simple-status', res => {
     t.is(res.statusCode, 201)
@@ -23,7 +23,7 @@ test.cb('returns custom status code', t => {
 })
 
 test.cb('returns headers', t => {
-  const server = serve('./simple-header-contract')
+  const server = serve('./contracts/simple-header')
   const headers = { 'content-type': 'application/json' }
 
   return server.inject({
@@ -40,7 +40,7 @@ test.cb('returns headers', t => {
 })
 
 test.cb('returns response for a matching POST schema', t => {
-  const server = serve('./simple-schema-contract')
+  const server = serve('./contracts/simple-schema')
   const headers = { 'content-type': 'application/json' }
   const payload = { id: 1 }
 
@@ -56,20 +56,20 @@ test.cb('returns response for a matching POST schema', t => {
 })
 
 test.cb('returns 404 for non-matching path', t => {
-  nonMatchingContractFor(t, './simple-contract', {
+  nonMatchingContractFor(t, './contracts/simple', {
     url: '/api/non-matching'
   })
 })
 
 test.cb('returns 404 for non-matching method', t => {
-  nonMatchingContractFor(t, './simple-contract', {
+  nonMatchingContractFor(t, './contracts/simple', {
     url: '/api/simple',
     method: 'POST'
   })
 })
 
 test.cb('returns 404 for non-matching header', t => {
-  nonMatchingContractFor(t, './simple-header-contract', {
+  nonMatchingContractFor(t, './contracts/simple-header', {
     url: '/api/simple-header'
   })
 })
@@ -77,7 +77,7 @@ test.cb('returns 404 for non-matching header', t => {
 test.cb('returns 404 for non-matching schema', t => {
   const headers = { 'content-type': 'application/json' }
 
-  nonMatchingContractFor(t, './simple-schema-contract', {
+  nonMatchingContractFor(t, './contracts/simple-schema', {
     url: '/api/simple-schema',
     method: 'POST',
     headers

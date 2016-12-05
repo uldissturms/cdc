@@ -3,7 +3,7 @@ import joi from 'joi'
 import { load } from './contract-loader'
 
 test('loads contracts from file with defaults set', t => {
-  const contracts = load('./simple-contract')
+  const contracts = load('./contracts/simple')
   const expectedContract = {
     request: {
       path: '/api/simple',

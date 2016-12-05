@@ -33,13 +33,13 @@ Where ./contracts/dependency contains index.js that describes contract.
 
 ### Using docker
 ```
-docker run -p 3000:3000 -v ${PWD}/lib:/contracts uldissturms/cdc mock ./contracts/simple-contract
+docker run -p 3000:3000 -v ${PWD}/contracts:/contracts uldissturms/cdc mock ./contracts/simple
 ```
 
 ### Using npm
 ```bash
 npm i cdc
-./node_modules/.bin/cdc mock ./lib/simple-contract
+./node_modules/.bin/cdc mock ./contracts/simple
 ```
 
 ## Contracts
@@ -74,7 +74,7 @@ curl localhost:3000/api/simple-schema -H 'content-type: application/json' -d '{"
 
 ### Examples
 
-For more examples take a look at contracts in `./lib` used for tests.
+For more examples take a look at contracts in `./contracts` used for tests.
 
 ## Libraries used
 - [Joi](https://npmjs.com/joi) (schema valiations)

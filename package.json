@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "standard",
     "test:watch": "npm test -- -w",
-    "test": "ava ./**/*.spec.js",
+    "test": "ava ./*.spec.js",
     "posttest": "npm run lint"
   },
   "repository": {
