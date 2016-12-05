@@ -92,7 +92,7 @@ For more examples take a look at contracts in `./lib` used for tests.
 - [pact](https://github.com/realestate-com-au/pact)
 - [pacto](https://github.com/thoughtworks/pacto)
 
-## Further reading:
+## Further reading
 - [Consumer-Driven Contracts: A Service Evolution Pattern](http://martinfowler.com/articles/consumerDrivenContracts.html)
 
 ## Licence
