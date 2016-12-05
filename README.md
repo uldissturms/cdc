@@ -14,13 +14,7 @@ services:
       context: .
     depends_on:
       - dependency
-    ports:
-      - "8080:8080"
     command: npm start
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
   dependency:
     image: uldissturms/cdc
     volumes:
