@@ -2,9 +2,9 @@
   "name": "cdc",
   "version": "0.0.7",
   "description": "Consumer Driven Contracts (CDC)",
-  "main": "cdc.js",
+  "main": "index.js",
   "bin": {
-    "cdc": "./cdc.js"
+    "cdc": "./index.js"
   },
   "preferGlobal": true,
   "scripts": {

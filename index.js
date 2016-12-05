@@ -3,7 +3,7 @@
 const program = require('commander')
 const path = require('path')
 const pkg = require('./package')
-const mock = require('./lib/mock')
+const mock = require('./mock')
 
 program
   .version(pkg.version)
