@@ -1,7 +1,7 @@
 {
   "name": "cdc",
-  "version": "0.0.6",
-  "description": "Consumer Driven Contracts (CDC) provides a way to define mock provider for consumer (now) and verify contracts against provider (soon)",
+  "version": "0.0.7",
+  "description": "Consumer Driven Contracts (CDC)",
   "main": "cdc.js",
   "bin": {
     "cdc": "./cdc.js"
