@@ -3,15 +3,25 @@
   "version": "0.0.1",
   "description": "Consumer Driven Contracts",
   "main": "cdc.js",
+  "bin": {
+    "cdc": "./cdc.js"
+  },
+  "preferGlobal": true,
   "scripts": {
     "lint": "standard",
     "test:watch": "npm test -- -w",
-    "test": "ava ./**/*.spec.js"
+    "test": "ava ./**/*.spec.js",
+    "posttest": "npm run lint"
   },
   "repository": {
     "type": "git",
     "url": "github.com/uldissturms/cdc"
   },
+  "keyword": [
+    "consumer",
+    "driven",
+    "contracts"
+  ],
   "author": "Uldis Sturms <uldis.sturms@gmail.com>",
   "license": "MIT",
   "devDependencies": {
