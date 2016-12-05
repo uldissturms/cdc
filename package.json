@@ -1,7 +1,7 @@
 {
   "name": "cdc",
-  "version": "0.0.5",
-  "description": "Consumer Driven Contracts",
+  "version": "0.0.6",
+  "description": "Consumer Driven Contracts (CDC) provides a way to define mock provider for consumer (now) and verify contracts against provider (soon)",
   "main": "cdc.js",
   "bin": {
     "cdc": "./cdc.js"
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/uldissturms/cdc"
+    "url": "https://github.com/uldissturms/cdc.git"
   },
   "keywords": [
     "consumer",
@@ -24,6 +24,10 @@
   ],
   "author": "Uldis Sturms <uldis.sturms@gmail.com>",
   "license": "MIT",
+  "bugs": {
+    "url":  "https://github.com/uldissturms/cdc/issues"
+  },
+  "homepage": "https://uldissturms.github.io",
   "devDependencies": {
     "ava": "^0.17.0",
     "standard": "^8.6.0"
