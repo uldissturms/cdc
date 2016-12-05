@@ -1,4 +1,9 @@
 FROM node:slim
 MAINTAINER Uldis Sturms <uldis.sturms@gmail.com>
-RUN npm i cdc -g --production
-ENTRYPOINT ["cdc"]
+
+RUN mkdir contracts
+WORKDIR contracts
+
+RUN npm i cdc --production
+
+ENTRYPOINT ["./node_modules/.bin/cdc"]
