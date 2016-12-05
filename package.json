@@ -1,6 +1,6 @@
 {
   "name": "cdc",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Consumer Driven Contracts",
   "main": "cdc.js",
   "bin": {
@@ -17,7 +17,7 @@
     "type": "git",
     "url": "github.com/uldissturms/cdc"
   },
-  "keyword": [
+  "keywords": [
     "consumer",
     "driven",
     "contracts"
