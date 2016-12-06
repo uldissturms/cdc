@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "standard",
     "test:watch": "npm test -- -w",
-    "test": "ava ./*.spec.js",
+    "test": "nyc ava ./*.spec.js",
     "posttest": "npm run lint"
   },
   "repository": {
@@ -25,11 +25,12 @@
   "author": "Uldis Sturms <uldis.sturms@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url":  "https://github.com/uldissturms/cdc/issues"
+    "url": "https://github.com/uldissturms/cdc/issues"
   },
   "homepage": "https://uldissturms.github.io",
   "devDependencies": {
     "ava": "^0.17.0",
+    "nyc": "^10.0.0",
     "standard": "^8.6.0"
   },
   "dependencies": {
