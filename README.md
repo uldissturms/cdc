@@ -76,6 +76,10 @@ curl localhost:3000/api/simple-schema -H 'content-type: application/json' -d '{"
 {"hello": "world"}
 ```
 
+## Usage
+### Options
+- --watch, -w - to watch current directory for contract changes
+
 ### Examples
 
 For more examples take a look at contracts in `./contracts` used for tests.
