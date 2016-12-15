@@ -7,14 +7,16 @@ const { log } = require('./request')
 
 const allMethods = ['GET', 'POST', 'PUT', 'DELETE']
 const ignoredHeaders = [
-  'user-agent',
-  'host',
-  'content-length',
+  'accept',
+  'accept-encoding',
+  'accept-language',
   'cookie',
   'cache-control',
-  'accept-encoding',
-  'accept',
-  'connection'
+  'connection',
+  'content-length',
+  'host',
+  'upgrade-insecure-requests',
+  'user-agent'
 ]
 const validateSchemaForMethods = ['POST', 'PUT']
 
