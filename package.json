@@ -8,10 +8,11 @@
   },
   "preferGlobal": true,
   "scripts": {
-    "lint": "standard",
+    "dev": "npm run test:watch",
     "test:watch": "npm test -- -w",
     "test": "nyc ava ./*.spec.js",
-    "posttest": "npm run lint"
+    "posttest": "npm run lint",
+    "lint": "standard"
   },
   "repository": {
     "type": "git",

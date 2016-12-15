@@ -103,6 +103,7 @@ module.exports = (path, port) => {
 
     console.log(`server started at ${server.info.uri}`)
   })
+  return server
 }
 
 module.exports.serve = serve

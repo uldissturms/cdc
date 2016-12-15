@@ -14,7 +14,12 @@ const setDefaults =
     setDefault([ 'response', 'status' ], 200)
   )
 
+const requireUncached = module => {
+  delete require.cache[require.resolve(module)]
+  return require(module)
+}
+
 module.exports.load = contract => {
-  const loaded = require(contract)
+  const loaded = requireUncached(contract)
   return [setDefaults(loaded)]
 }
