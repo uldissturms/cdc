@@ -13,7 +13,7 @@ test.cb('verifies simple contract with base url set', t => {
   contractMatchesFor('simple', baseUrl, t)
 })
 
-test.cb.only('catches status mismatch', t => {
+test.cb('catches status mismatch', t => {
   const expected = { status: 200 }
   const actual = { status: 404 }
 
