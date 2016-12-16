@@ -1,8 +1,9 @@
 # Consumer Driven Contracts (CDC)
-
+[![wercker status](https://app.wercker.com/status/edf041d1561206d9d42fd539ad9f0e79/s/master "wercker status")](https://app.wercker.com/project/byKey/edf041d1561206d9d42fd539ad9f0e79)
 [![Coverage Status](https://coveralls.io/repos/github/uldissturms/cdc/badge.svg)](https://coveralls.io/github/uldissturms/cdc)
 [![Code Climate](https://codeclimate.com/github/uldissturms/cdc/badges/gpa.svg)](https://codeclimate.com/github/uldissturms/cdc)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![Gitter](https://badges.gitter.im/join_chat.svg)](https://gitter.im/consumer-driven-contracts)
 
 CDC provides a way to define mock provider for consumer (now) and verify contracts against provider (soon).
 It is written in JavaScript, however can be run in any setup using docker.
