@@ -31,6 +31,7 @@
   "homepage": "https://uldissturms.github.io",
   "devDependencies": {
     "ava": "^0.17.0",
+    "concat-stream": "^1.5.2",
     "nyc": "^10.0.0",
     "standard": "^8.6.0"
   },
@@ -39,6 +40,9 @@
     "commander": "^2.9.0",
     "hapi": "^16.0.1",
     "joi": "^10.0.2",
-    "ramda": "^0.22.1"
+    "nock": "^9.0.2",
+    "node-fetch": "^1.6.3",
+    "ramda": "^0.22.1",
+    "tape": "^4.6.3"
   }
 }

@@ -5,6 +5,7 @@ import { load } from './contract-loader'
 test('loads contracts from file with defaults set', t => {
   const contracts = load('./contracts/simple')
   const expectedContract = {
+    name: 'simple endpoint that returns hello world',
     request: {
       path: '/api/simple',
       method: 'GET',
