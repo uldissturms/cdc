@@ -1,6 +1,6 @@
 {
   "name": "cdc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Consumer Driven Contracts (CDC)",
   "main": "index.js",
   "bin": {
@@ -43,7 +43,6 @@
     "joi": "^10.0.2",
     "nock": "^9.0.2",
     "node-fetch": "^1.6.3",
-    "ramda": "^0.22.1",
-    "tape": "^4.6.3"
+    "ramda": "^0.22.1"
   }
 }
