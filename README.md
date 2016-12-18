@@ -5,7 +5,7 @@
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 [![Gitter](https://badges.gitter.im/join_chat.svg)](https://gitter.im/consumer-driven-contracts)
 
-CDC provides a way to define mock provider for consumer (now) and verify contracts against provider (soon).
+CDC provides a way to define mock provider for consumer and verify contracts against provider.
 It is written in JavaScript, however can be run in any setup using docker.
 
 ## Getting started
@@ -45,6 +45,7 @@ docker run -p 3000:3000 -v ${PWD}/contracts:/contracts uldissturms/cdc mock ./co
 ```bash
 npm i cdc
 ./node_modules/.bin/cdc mock ./contracts/simple
+./node_modules/.bin/cdc verify ./contracts/simple --baseUrl http://localhost:3000
 ```
 
 ## Contracts
@@ -54,32 +55,48 @@ npm i cdc
 const joi = require('joi')
 
 module.exports = {
+  name: 'simple request/response schema',
   request: {
     path: '/api/simple-schema',
     method: 'POST',
     headers: {
       'content-type': 'application/json'
     },
+    body: {
+      hello: 'world'
+    },
     bodySchema: joi.object().keys({
-      id: joi.number().integer().required()
+      hello: joi.string()
     })
   },
   response: {
     body: {
-      hello: 'world'
-    }
+      id: 12345
+    },
+    bodySchema: joi.object().keys({
+      id: joi.number().integer()
+    })
   }
 }
 ```
 #### Response
 ```
-curl localhost:3000/api/simple-schema -H 'content-type: application/json' -d '{"id":123}'
-{"hello": "world"}
+curl localhost:3000/api/simple-schema -H 'content-type: application/json' -d '{"hello": "world"}'
+```
+``` json
+{"id": 12345}
 ```
 
 ## Usage
+- `mock` - mocks responses for consumer
+- `verify` - verifies contracts agains provider
+
 ### Options
-- --watch, -w - to watch current directory for contract changes
+- mock
+  - --port, -p - port for running mock server, defaults to 3000 (optional)
+  - --watch, -w - to watch current directory for contract changes (optional)
+- verify
+  - --baseUrl, -b - base url to run verifications against (required)
 
 ### Examples
 
@@ -88,6 +105,7 @@ For more examples take a look at contracts in `./contracts` used for tests.
 ## Libraries used
 - [Joi](https://npmjs.com/joi) (schema valiations)
 - [Hapi](https://npmjs.com/hapi) (mock provider server)
+- [Tape](https://npmjs.com/tape) (verify assertions)
 
 ## Influences
 - [consumer-contracts](https://www.npmjs.com/consumer-contracts)
