@@ -11,7 +11,8 @@ const setDefaults =
   R.pipe(
     setDefault([ 'request', 'headers' ], {}),
     setDefault([ 'request', 'bodySchema' ], joi.object()),
-    setDefault([ 'response', 'status' ], 200)
+    setDefault([ 'response', 'status' ], 200),
+    setDefault([ 'response', 'headers' ], {})
   )
 
 const requireUncached = module => {

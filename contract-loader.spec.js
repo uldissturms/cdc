@@ -16,7 +16,8 @@ test('loads contracts from file with defaults set', t => {
       body: {
         hello: 'world'
       },
-      status: 200
+      status: 200,
+      headers: {}
     }
   }
   t.deepEqual(contracts, [expectedContract])

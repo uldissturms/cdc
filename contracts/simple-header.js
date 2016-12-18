@@ -1,4 +1,5 @@
 module.exports = {
+  name: 'simple header contract',
   request: {
     path: '/api/simple-header',
     method: 'GET',

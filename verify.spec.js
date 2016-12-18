@@ -4,18 +4,24 @@ import nock from 'nock'
 import concat from 'concat-stream'
 import verify, { responseMatches, fail } from './verify'
 
+const baseUrl = 'http://provider:4000'
+const emptyHeaders = { raw: () => ({}) }
 const contractFor = name =>
   `./contracts/${name}`
 
 test.cb('verifies simple contract with base url set', t => {
-  const baseUrl = 'http://provider:4000'
-  stubProvider(baseUrl)
-  contractMatchesFor('simple', baseUrl, t)
+  stubProvider('simple')
+  contractMatchesFor('simple', t)
+})
+
+test.cb('verifies simple header contract', t => {
+  stubProvider('simple-header', { headers: { 'x-request-id': '12345' } })
+  contractMatchesFor('simple-header', t)
 })
 
 test.cb('reports status mismatch', t => {
-  const expected = { status: 200 }
-  const actual = { status: 404 }
+  const expected = { status: 200, headers: {} }
+  const actual = { status: 404, headers: emptyHeaders }
 
   outputFor(expected, actual, output => {
     t.regex(output, /expected: 200/)
@@ -24,7 +30,20 @@ test.cb('reports status mismatch', t => {
   })
 })
 
-test.cb('reports test failure on errors', t => {
+test.cb('reports header mismatch', t => {
+  const expected = { headers: { 'content-type': 'application/json' } }
+  const actual = { headers: { raw: () => ({ 'content-type': [ 'text/xml' ] }) } }
+
+  outputFor(expected, actual, output => {
+    t.regex(output, /expected:/)
+    t.regex(output, /application\/json/)
+    t.regex(output, /actual:/)
+    t.regex(output, /text\/xml/)
+    t.end()
+  })
+})
+
+test.cb('reports test failure for errors', t => {
   const message = 'error message'
   fail('test name', testStreamFor(output => {
     t.regex(output, /error message/)
@@ -32,13 +51,13 @@ test.cb('reports test failure on errors', t => {
   }))({ message })
 })
 
-function stubProvider (baseUrl, status = 200) {
+function stubProvider (name, { status = 200, headers } = {}) {
   nock(baseUrl)
-    .get('/api/simple')
-    .reply(status, { 'hello': 'world' })
+    .get(`/api/${name}`)
+    .reply(status, { 'hello': 'world' }, headers)
 }
 
-function contractMatchesFor (name, baseUrl, t) {
+function contractMatchesFor (name, t) {
   Promise.all(verify(contractFor(name), baseUrl))
     .then(() => { t.end() })
     .catch(t.end)
