@@ -4,6 +4,7 @@ const R = require('ramda')
 
 const { load } = require('./contract-loader')
 const { log } = require('./request')
+const { joiOptions } = require('./options')
 
 const allMethods = ['GET', 'POST', 'PUT', 'DELETE']
 const ignoredHeaders = [
@@ -23,11 +24,6 @@ const validateSchemaForMethods = ['POST', 'PUT']
 const hasPath = R.pathEq([ 'request', 'path' ])
 const hasMethod = R.pathEq([ 'request', 'method' ])
 const hasHeaders = R.pathEq([ 'request', 'headers' ])
-
-const joiOptions = {
-  allowUnknown: true,
-  presence: 'required'
-}
 
 const matchesSchema = ({ method, payload }) => contract => {
   const { bodySchema } = contract.request

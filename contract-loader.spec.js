@@ -16,6 +16,7 @@ test('loads contracts from file with defaults set', t => {
       body: {
         hello: 'world'
       },
+      bodySchema: joi.object(),
       status: 200,
       headers: {}
     }

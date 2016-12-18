@@ -45,7 +45,7 @@ test.cb('returns headers', t => {
 test.cb('returns response for a matching POST schema', t => {
   const server = serveContract('simple-schema')
   const headers = { 'content-type': 'application/json' }
-  const payload = { id: 1 }
+  const payload = { hello: 'world' }
 
   return server.inject({
     url: '/api/simple-schema',

@@ -36,6 +36,7 @@
     "standard": "^8.6.0"
   },
   "dependencies": {
+    "blue-tape": "^1.0.0",
     "boom": "^4.2.0",
     "commander": "^2.9.0",
     "hapi": "^16.0.1",

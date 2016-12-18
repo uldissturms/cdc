@@ -12,7 +12,8 @@ const setDefaults =
     setDefault([ 'request', 'headers' ], {}),
     setDefault([ 'request', 'bodySchema' ], joi.object()),
     setDefault([ 'response', 'status' ], 200),
-    setDefault([ 'response', 'headers' ], {})
+    setDefault([ 'response', 'headers' ], {}),
+    setDefault([ 'response', 'bodySchema' ], joi.object())
   )
 
 const requireUncached = module => {
