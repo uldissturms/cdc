@@ -10,13 +10,13 @@ test('loads contracts from file with defaults set', t => {
       path: '/api/simple',
       method: 'GET',
       headers: {},
-      bodySchema: joi.object()
+      bodySchema: joi.any()
     },
     response: {
       body: {
         hello: 'world'
       },
-      bodySchema: joi.object(),
+      bodySchema: joi.any(),
       status: 200,
       headers: {}
     }

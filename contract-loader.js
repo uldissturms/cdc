@@ -10,10 +10,10 @@ const setDefault = (path, value) => contract =>
 const setDefaults =
   R.pipe(
     setDefault([ 'request', 'headers' ], {}),
-    setDefault([ 'request', 'bodySchema' ], joi.object()),
+    setDefault([ 'request', 'bodySchema' ], joi.any()),
     setDefault([ 'response', 'status' ], 200),
     setDefault([ 'response', 'headers' ], {}),
-    setDefault([ 'response', 'bodySchema' ], joi.object())
+    setDefault([ 'response', 'bodySchema' ], joi.any())
   )
 
 const requireUncached = module => {

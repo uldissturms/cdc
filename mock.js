@@ -19,24 +19,16 @@ const ignoredHeaders = [
   'upgrade-insecure-requests',
   'user-agent'
 ]
-const validateSchemaForMethods = ['POST', 'PUT']
 
 const hasPath = R.pathEq([ 'request', 'path' ])
 const hasMethod = R.pathEq([ 'request', 'method' ])
 const hasHeaders = R.pathEq([ 'request', 'headers' ])
 
-const matchesSchema = ({ method, payload }) => contract => {
+const hasCorrectSchema = ({ method, payload }) => contract => {
   const { bodySchema } = contract.request
   const result = bodySchema.validate(payload, joiOptions)
   return result.error === null
 }
-
-const hasCorrectSchema = req =>
-  R.ifElse(
-    () => R.contains(R.toUpper(req.method), validateSchemaForMethods),
-    matchesSchema(req),
-    R.T
-  )
 
 const contractFor = req => R.pipe(
   R.filter(hasPath(req.path)),
