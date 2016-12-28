@@ -88,6 +88,17 @@ curl localhost:3000/api/simple-schema -H 'content-type: application/json' -d '{"
 ```
 
 ## Usage
+
+[Why I wrote my own](http://uldissturms.github.io/2016/12/28/why-i-wrote-my-own-consumer-driven-contracts-library/)
+
+![](/docs/consumer.png)
+![](/docs/provider.png)
+
+|          | request       | response      |
+| ---------|---------------| --------------|
+| consumer | verify schema | mock          |
+| provider | request       | verify schema |
+
 - `mock` - mocks responses for consumer
 - `verify` - verifies contracts agains provider
 
@@ -105,7 +116,7 @@ For more examples take a look at contracts in `./contracts` used for tests.
 ## Libraries used
 - [Joi](https://npmjs.com/joi) (schema valiations)
 - [Hapi](https://npmjs.com/hapi) (mock provider server)
-- [Tape](https://npmjs.com/tape) (verify assertions)
+- [Tape](https://npmjs.com/tape) (verify consumer contracts against a provider)
 
 ## Influences
 - [consumer-contracts](https://www.npmjs.com/consumer-contracts)
@@ -115,6 +126,8 @@ For more examples take a look at contracts in `./contracts` used for tests.
 
 ## Further reading
 - [Consumer-Driven Contracts: A Service Evolution Pattern](http://martinfowler.com/articles/consumerDrivenContracts.html)
+- [Integration Contract Test](http://martinfowler.com/bliki/IntegrationContractTest.html)
+- [Why I wrote my own](http://uldissturms.github.io/2016/12/28/why-i-wrote-my-own-consumer-driven-contracts-library/)
 
 ## Licence
 
