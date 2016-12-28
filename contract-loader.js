@@ -9,6 +9,7 @@ const setDefault = (path, value) => contract =>
 
 const setDefaults =
   R.pipe(
+    setDefault([ 'request', 'method' ], 'GET'),
     setDefault([ 'request', 'headers' ], {}),
     setDefault([ 'request', 'bodySchema' ], joi.any()),
     setDefault([ 'response', 'status' ], 200),
