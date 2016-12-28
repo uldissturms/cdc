@@ -23,3 +23,8 @@ test('loads contracts from file with defaults set', t => {
   }
   t.deepEqual(contracts, [expectedContract])
 })
+
+test('supports loading an array of contracts', t => {
+  const contracts = load('./contracts/multiple')
+  t.is(contracts.length, 2)
+})
