@@ -1,12 +1,11 @@
 {
   "name": "cdc",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Consumer Driven Contracts (CDC)",
   "main": "index.js",
   "bin": {
     "cdc": "./index.js"
   },
-  "preferGlobal": true,
   "scripts": {
     "dev": "npm run test:watch",
     "test:watch": "npm test -- -w",

@@ -1,6 +1,6 @@
 import test from 'ava'
 import joi from 'joi'
-import { load } from './contract-loader'
+import { load, dir } from './contract-loader'
 
 test('loads contracts from file with defaults set', t => {
   const contracts = load('./contracts/simple')
@@ -27,4 +27,19 @@ test('loads contracts from file with defaults set', t => {
 test('supports loading an array of contracts', t => {
   const contracts = load('./contracts/multiple')
   t.is(contracts.length, 2)
+})
+
+test('resolves contract directory for file', t => {
+  return dir('./contracts/simple.js')
+    .then(res => t.is(res, `${__dirname}/contracts`))
+})
+
+test('resolves contract directory for incomplete file', t => {
+  return dir('./contracts/simple')
+    .then(res => t.is(res, `${__dirname}/contracts`))
+})
+
+test('resolves contract directory for directory', t => {
+  return dir('./contracts')
+    .then(res => t.is(res, `${__dirname}/contracts`))
 })
