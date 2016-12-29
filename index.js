@@ -12,7 +12,7 @@ const server = (contract, options) =>
 
 // TODO: refactor this to functional code - so that server doesn't get mutated
 const watch = (contract, options) => {
-  const contractDir = path.resolve(contract)
+  const contractDir = path.dirname(path.resolve(contract))
   console.log(`watching for contract changes: ${contractDir}`)
 
   let srv = server(contract, options)
