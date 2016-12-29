@@ -13,7 +13,7 @@ const server = (contract, options) =>
 // TODO: refactor this to functional code - so that server never gets mutated
 const watch = (contract, options) => {
   let srv = server(contract, options)
-  fs.watch(__dirname, {recursive: true}, (_, filename) => {
+  fs.watch(process.cwd(), {recursive: true}, (_, filename) => {
     console.log(`${filename} changed, restarting...`)
     srv.stop(() => {
       srv = server(contract, options)
