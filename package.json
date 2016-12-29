@@ -1,6 +1,6 @@
 {
   "name": "cdc",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Consumer Driven Contracts (CDC)",
   "main": "index.js",
   "bin": {

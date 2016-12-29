@@ -1,5 +1,6 @@
 const R = require('ramda')
 const joi = require('joi')
+const path = require('path')
 
 const setDefault = (path, value) => contract =>
   R.assocPath(
@@ -27,3 +28,6 @@ module.exports.load = path => {
   const contracts = R.unless(R.isArrayLike, R.of, loaded)
   return R.map(setDefaults, contracts)
 }
+
+module.exports.dir = contract =>
+  path.dirname(require.resolve(contract))
