@@ -23,7 +23,7 @@ services:
   dependency:
     image: uldissturms/cdc
     volumes:
-      - ./contracts/dependency:/contracts
+      - ./contracts/dependency:/usr/app/src/contracts
     command: mock
     ports:
       - "3000:3000"
@@ -38,7 +38,7 @@ Where ./contracts/dependency contains index.js that describes contract.
 
 ### Using docker
 ```
-docker run -p 3000:3000 -v ${PWD}/contracts:/contracts uldissturms/cdc mock ./contracts/simple
+docker run -p 3000:3000 -v ${PWD}/contracts:/usr/app/src/contracts uldissturms/cdc mock ./contracts/simple
 ```
 
 ### Using npm
