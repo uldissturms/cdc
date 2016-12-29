@@ -6,15 +6,14 @@ const pkg = require('./package')
 const mock = require('./mock')
 const verify = require('./verify')
 const fs = require('fs')
-const { dir } = require('./contract-loader')
 
 const server = (contract, options) =>
   mock(path.resolve(contract), options.port || 3000)
 
 // TODO: refactor this to functional code - so that server doesn't get mutated
 const watch = (contract, options) => {
-  const contractDir = dir(contract)
-  console.log(`watching for contract changes in: ${contractDir}`)
+  const contractDir = path.resolve(contract)
+  console.log(`watching for contract changes: ${contractDir}`)
 
   let srv = server(contract, options)
   fs.watch(contractDir, {recursive: true}, (_, filename) => {
