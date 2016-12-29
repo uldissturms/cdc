@@ -1,0 +1,9 @@
+version: '2'
+services:
+  cdc:
+    image: uldissturms/cdc
+    volumes:
+      - ./contracts:/usr/app/src/contracts
+    command: mock ./contracts/simple --port 3000 --watch
+    ports:
+      - "3000:3000"
