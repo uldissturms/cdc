@@ -9,7 +9,7 @@ const fs = require('fs')
 const { dir } = require('./contract-loader')
 
 const server = (contract, options) =>
-  mock(path.resolve(contract), options.port || 3000)
+  mock(path.resolve(contract), options)
 
 const logContractDir = dir => {
   console.log(`watching for contract changes: ${dir}`)
@@ -48,6 +48,7 @@ program
   .command('mock [contract]')
   .option('-p, --port <port>', 'Port for running mock server. Defaults to 3000.')
   .option('-w, --watch', 'Watch for changes.')
+  .option('-t, --tls', 'Use TLS. Defaults to false.')
   .description('Provide mock responses for matching consumer requests.')
   .action((contract = './contracts', options) => {
     mockServer(contract, options)

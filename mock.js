@@ -1,6 +1,8 @@
 const hapi = require('hapi')
 const boom = require('boom')
 const R = require('ramda')
+const fs = require('fs')
+const path = require('path')
 
 const { load } = require('./contract-loader')
 const { log } = require('./request')
@@ -66,9 +68,14 @@ const handlerFor = contracts => (req, reply) => {
   replyMatch(reply, match)
 }
 
-const createServerFor = (contracts, port) => {
+const tlsOpts = () => ({
+  key: fs.readFileSync(path.join(__dirname, 'certs/key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, 'certs/cert.pem'))
+})
+
+const createServerFor = (contracts, { port = 3000, tls = false } = {}) => {
   const server = new hapi.Server()
-  server.connection({ port })
+  server.connection(Object.assign({ port }, tls ? { tls: tlsOpts() } : {}))
   server.route({
     method: allMethods,
     path: '/{path*}',
@@ -77,8 +84,8 @@ const createServerFor = (contracts, port) => {
   return server
 }
 
-const serve = (path, port = 3000) =>
-  createServerFor(load(path), port)
+const serve = (path, options) =>
+  createServerFor(load(path), options)
 
 module.exports = (path, port) => {
   console.log('mocking responses for:', path)

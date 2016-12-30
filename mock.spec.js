@@ -3,11 +3,12 @@ import R from 'ramda'
 import { serve } from './mock'
 import simpleContract from './contracts/simple'
 
-const serveContract = name =>
-  serve(`./contracts/${name}`)
+const serveContract = (name, opts) =>
+  serve(`./contracts/${name}`, opts)
 
 test.cb('returns simple mock responses', t => {
   const server = serveContract('simple')
+  t.is(server.info.protocol, 'http')
 
   return server.inject('/api/simple', res => {
     t.is(res.statusCode, 200)
@@ -55,6 +56,15 @@ test.cb('returns response for a matching POST schema', t => {
   }, res => {
     t.is(res.statusCode, 200)
     t.end()
+  })
+})
+
+test('supports https mocks', t => {
+  const server = serveContract('simple', { tls: true })
+  t.is(server.info.protocol, 'https')
+
+  return server.inject('/api/simple', res => {
+    t.is(res.statusCode, 200)
   })
 })
 
