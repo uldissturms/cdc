@@ -32,12 +32,13 @@ const hasCorrectSchema = ({ method, payload }) => contract => {
   return result.error === null
 }
 
-const contractFor = req => R.pipe(
-  R.filter(hasPath(req.path)),
-  R.filter(hasMethod(R.toUpper(req.method))),
-  R.filter(hasHeaders(R.omit(ignoredHeaders, req.headers))),
-  R.filter(hasCorrectSchema(req))
-)
+const requestMatchesContract = req => R.allPass([
+  hasPath(req.path),
+  hasMethod(R.toUpper(req.method)),
+  hasHeaders(R.omit(ignoredHeaders, req.headers)),
+  hasCorrectSchema(req)
+])
+const contractFor = req => R.filter(requestMatchesContract(req))
 
 const notFound = req =>
   boom.notFound(`mock data not found for ${req.method}: ${req.path}`)
