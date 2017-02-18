@@ -59,6 +59,25 @@ test.cb('returns response for a matching POST schema', t => {
   })
 })
 
+test.cb('returns response for a matching schema with additional headers', t => {
+  const server = serveContract('simple-schema')
+  const payload = { hello: 'world' }
+  const headers = {
+    'content-type': 'application/json',
+    'postman-token': '2dlnf3qur0w3fiojclksmx02u9prqo'
+  }
+
+  return server.inject({
+    url: '/api/simple-schema',
+    method: 'POST',
+    headers,
+    payload
+  }, res => {
+    t.is(res.statusCode, 200)
+    t.end()
+  })
+})
+
 test('supports https mocks', t => {
   const server = serveContract('simple', { tls: true })
   t.is(server.info.protocol, 'https')

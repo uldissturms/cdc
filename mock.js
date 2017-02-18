@@ -24,7 +24,12 @@ const ignoredHeaders = [
 
 const hasPath = R.pathEq([ 'request', 'path' ])
 const hasMethod = R.pathEq([ 'request', 'method' ])
-const hasHeaders = R.pathEq([ 'request', 'headers' ])
+
+const hasHeaders = headers => R.pipe(
+  R.path(['request', 'headers']),
+  R.merge(headers),
+  R.equals(headers)
+)
 
 const hasCorrectSchema = ({ method, payload }) => contract => {
   const { bodySchema } = contract.request
@@ -74,9 +79,9 @@ const tlsOpts = () => ({
   cert: fs.readFileSync(path.join(__dirname, 'certs/cert.pem'))
 })
 
-const createServerFor = (contracts, { port = 3000, tls = false } = {}) => {
+const createServerFor = (contracts, { port = 3000, tls = false, cors = true } = {}) => {
   const server = new hapi.Server()
-  server.connection(Object.assign({ port }, tls ? { tls: tlsOpts() } : {}))
+  server.connection(Object.assign({ port, routes: { cors: cors } }, tls ? { tls: tlsOpts() } : {}))
   server.route({
     method: allMethods,
     path: '/{path*}',

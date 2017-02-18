@@ -49,6 +49,7 @@ program
   .option('-p, --port <port>', 'Port for running mock server. Defaults to 3000.')
   .option('-w, --watch', 'Watch for changes.')
   .option('-t, --tls', 'Use TLS. Defaults to false.')
+  .option('-C, --no-cors', 'Disable CORS support.')
   .description('Provide mock responses for matching consumer requests.')
   .action((contract = './contracts', options) => {
     mockServer(contract, options)
