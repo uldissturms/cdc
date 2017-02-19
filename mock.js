@@ -68,7 +68,7 @@ const tlsOpts = () => ({
 
 const createServerFor = (contracts, { port = 3000, tls = false, cors = true } = {}) => {
   const server = new hapi.Server()
-  server.connection(Object.assign({ port, routes: { cors: cors } }, tls ? { tls: tlsOpts() } : {}))
+  server.connection(Object.assign({ port, routes: { cors } }, tls ? { tls: tlsOpts() } : {}))
   server.route({
     method: allMethods,
     path: '/{path*}',
