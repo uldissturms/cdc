@@ -6,6 +6,21 @@ import simpleContract from './contracts/simple'
 const serveContract = (name, opts) =>
   serve(`./contracts/${name}`, opts)
 
+test('default mock server options', t => {
+  const server = serveContract('simple')
+  t.is(server.info.protocol, 'http')
+  t.is((typeof server.connections[0].settings.routes.cors), 'object')
+})
+
+test('supports https mocks', t => {
+  const server = serveContract('simple', { tls: true })
+  t.is(server.info.protocol, 'https')
+
+  return server.inject('/api/simple', res => {
+    t.is(res.statusCode, 200)
+  })
+})
+
 test.cb('returns simple mock responses', t => {
   const server = serveContract('simple')
   t.is(server.info.protocol, 'http')
@@ -75,15 +90,6 @@ test.cb('returns response for a matching schema with additional headers', t => {
   }, res => {
     t.is(res.statusCode, 200)
     t.end()
-  })
-})
-
-test('supports https mocks', t => {
-  const server = serveContract('simple', { tls: true })
-  t.is(server.info.protocol, 'https')
-
-  return server.inject('/api/simple', res => {
-    t.is(res.statusCode, 200)
   })
 })
 
