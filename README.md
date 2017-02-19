@@ -105,6 +105,7 @@ curl localhost:3000/api/simple-schema -H 'content-type: application/json' -d '{"
 ### Options
 - mock
   - --port, -p - port for running mock server, defaults to 3000 (optional)
+  - --no-cors, -C - disable CORS support (optional)
   - --watch, -w - to watch current directory for contract changes (optional)
   - --tls, -t - enable [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)  with a self signed certificate ( setting `NODE_TLS_REJECT_UNAUTHORIZED=0` when consuming from node might be required )
 - verify
