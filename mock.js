@@ -9,19 +9,6 @@ const { log } = require('./request')
 const { joiOptions } = require('./options')
 
 const allMethods = ['GET', 'POST', 'PUT', 'DELETE']
-const ignoredHeaders = [
-  'accept',
-  'accept-encoding',
-  'accept-language',
-  'cookie',
-  'cache-control',
-  'connection',
-  'content-length',
-  'host',
-  'upgrade-insecure-requests',
-  'user-agent'
-]
-
 const hasPath = R.pathEq([ 'request', 'path' ])
 const hasMethod = R.pathEq([ 'request', 'method' ])
 
@@ -40,7 +27,7 @@ const hasCorrectSchema = ({ method, payload }) => contract => {
 const requestMatchesContract = req => R.allPass([
   hasPath(req.path),
   hasMethod(R.toUpper(req.method)),
-  hasHeaders(R.omit(ignoredHeaders, req.headers)),
+  hasHeaders(req.headers),
   hasCorrectSchema(req)
 ])
 const contractFor = req => R.filter(requestMatchesContract(req))
