@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "blue-tape": "^1.0.0",
-    "boom": "^6.0.0",
+    "boom": "^7.0.0",
     "commander": "^2.9.0",
     "hapi": "^16.0.1",
     "joi": "^12.0.0",
