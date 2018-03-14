@@ -43,22 +43,23 @@ const setHeaderFor = response => header => {
   response.header(name, value)
 }
 
-const replyMatch = (reply, match) => {
+const replyMatch = (h, match) => {
   const { status, headers, body } = R.head(match).response
-  const response = reply(body).code(status)
+  const response = h.response(body).code(status)
   R.forEach(setHeaderFor(response), R.toPairs(headers))
+  return response
 }
 
-const handlerFor = contracts => (req, reply) => {
+const handlerFor = contracts => (req, h) => {
   log(req)
 
   const match = contractFor(req)(contracts)
 
   if (R.isEmpty(match)) {
-    return reply(notFound(req))
+    return notFound(req)
   }
 
-  replyMatch(reply, match)
+  return replyMatch(h, match)
 }
 
 const tlsOpts = () => ({
@@ -67,8 +68,9 @@ const tlsOpts = () => ({
 })
 
 const createServerFor = (contracts, { port = 3000, tls = false, cors = true } = {}) => {
-  const server = new hapi.Server()
-  server.connection(Object.assign({ port, routes: { cors } }, tls ? { tls: tlsOpts() } : {}))
+  const server = new hapi.Server(
+    Object.assign({ port, routes: { cors } }, tls ? { tls: tlsOpts() } : {})
+  )
   server.route({
     method: allMethods,
     path: '/{path*}',
@@ -80,17 +82,16 @@ const createServerFor = (contracts, { port = 3000, tls = false, cors = true } = 
 const serve = (path, options) =>
   createServerFor(load(path), options)
 
-module.exports = (path, port) => {
+module.exports = async (path, port) => {
   console.log('mocking responses for:', path)
 
   const server = serve(path, port)
-  server.start(err => {
-    if (err) {
-      console.log('error occured starting server:', err)
-    }
-
+  try {
+    await server.start()
     console.log(`server started at ${server.info.uri}`)
-  })
+  } catch (err) {
+    console.error('error occured starting server:', err)
+  }
   return server
 }
 

@@ -9,72 +9,63 @@ const serveContract = (name, opts) =>
 test('default mock server options', t => {
   const server = serveContract('simple')
   t.is(server.info.protocol, 'http')
-  t.is((typeof server.connections[0].settings.routes.cors), 'object')
+  t.is((typeof server.settings.routes.cors), 'object')
 })
 
-test('supports https mocks', t => {
+test('supports https mocks', async t => {
   const server = serveContract('simple', { tls: true })
   t.is(server.info.protocol, 'https')
 
-  return server.inject('/api/simple', res => {
-    t.is(res.statusCode, 200)
-  })
+  const res = await server.inject('/api/simple')
+  t.is(res.statusCode, 200)
 })
 
-test.cb('returns simple mock responses', t => {
+test('returns simple mock responses', async t => {
   const server = serveContract('simple')
   t.is(server.info.protocol, 'http')
 
-  return server.inject('/api/simple', res => {
-    t.is(res.statusCode, 200)
-    t.deepEqual(res.result, simpleContract.response.body)
-    t.end()
-  })
+  const res = await server.inject('/api/simple')
+  t.is(res.statusCode, 200)
+  t.deepEqual(res.result, simpleContract.response.body)
 })
 
-test.cb('returns custom status code', t => {
+test('returns custom status code', async t => {
   const server = serveContract('simple-status')
 
-  return server.inject('/api/simple-status', res => {
-    t.is(res.statusCode, 201)
-    t.end()
-  })
+  const res = await server.inject('/api/simple-status')
+  t.is(res.statusCode, 201)
 })
 
-test.cb('returns headers', t => {
+test('returns headers', async t => {
   const server = serveContract('simple-header')
   const headers = { 'content-type': 'application/json' }
 
-  return server.inject({
+  const res = await server.inject({
     url: '/api/simple-header',
     headers
-  }, res => {
-    t.is(res.statusCode, 200)
-    t.deepEqual(
-      R.pick(['x-request-id'], res.headers),
-      { 'x-request-id': '12345' }
-    )
-    t.end()
   })
+  t.is(res.statusCode, 200)
+  t.deepEqual(
+    R.pick(['x-request-id'], res.headers),
+    { 'x-request-id': '12345' }
+  )
 })
 
-test.cb('returns response for a matching POST schema', t => {
+test('returns response for a matching POST schema', async t => {
   const server = serveContract('simple-schema')
   const headers = { 'content-type': 'application/json' }
   const payload = { hello: 'world' }
 
-  return server.inject({
+  const res = await server.inject({
     url: '/api/simple-schema',
     method: 'POST',
     headers,
     payload
-  }, res => {
-    t.is(res.statusCode, 200)
-    t.end()
   })
+  t.is(res.statusCode, 200)
 })
 
-test.cb('returns response for a matching schema with additional headers', t => {
+test('returns response for a matching schema with additional headers', async t => {
   const server = serveContract('simple-schema')
   const payload = { hello: 'world' }
   const headers = {
@@ -82,51 +73,47 @@ test.cb('returns response for a matching schema with additional headers', t => {
     'postman-token': '2dlnf3qur0w3fiojclksmx02u9prqo'
   }
 
-  return server.inject({
+  const res = await server.inject({
     url: '/api/simple-schema',
     method: 'POST',
     headers,
     payload
-  }, res => {
-    t.is(res.statusCode, 200)
-    t.end()
   })
+  t.is(res.statusCode, 200)
 })
 
-test.cb('returns 404 for non-matching path', t => {
-  nonMatchingContractFor(t, 'simple', {
+test('returns 404 for non-matching path', async t => {
+  await nonMatchingContractFor(t, 'simple', {
     url: '/api/non-matching'
   })
 })
 
-test.cb('returns 404 for non-matching method', t => {
-  nonMatchingContractFor(t, 'simple', {
+test('returns 404 for non-matching method', async t => {
+  await nonMatchingContractFor(t, 'simple', {
     url: '/api/simple',
     method: 'POST'
   })
 })
 
-test.cb('returns 404 for non-matching header', t => {
-  nonMatchingContractFor(t, 'simple-header', {
+test('returns 404 for non-matching header', async t => {
+  await nonMatchingContractFor(t, 'simple-header', {
     url: '/api/simple-header'
   })
 })
 
-test.cb('returns 404 for non-matching schema', t => {
+test('returns 404 for non-matching schema', async t => {
   const headers = { 'content-type': 'application/json' }
 
-  nonMatchingContractFor(t, 'simple-schema', {
+  await nonMatchingContractFor(t, 'simple-schema', {
     url: '/api/simple-schema',
     method: 'POST',
     headers
   })
 })
 
-function nonMatchingContractFor (t, name, options) {
+async function nonMatchingContractFor (t, name, options) {
   const server = serveContract(name)
 
-  return server.inject(options, res => {
-    t.deepEqual(res.statusCode, 404)
-    t.end()
-  })
+  const res = await server.inject(options)
+  t.deepEqual(res.statusCode, 404)
 }

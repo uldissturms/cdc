@@ -16,13 +16,12 @@ const logContractDir = dir => {
   return dir
 }
 
-const serverInWatchMode = (contract, options) => dir => {
-  let srv = server(contract, options)
-  fs.watch(dir, {recursive: true}, (_, filename) => {
+const serverInWatchMode = (contract, options) => async (dir) => {
+  let srv = await server(contract, options)
+  fs.watch(dir, {recursive: true}, async (_, filename) => {
     console.log(`${filename} changed, restarting...`)
-    srv.stop(() => {
-      srv = server(contract, options)
-    })
+    await srv.stop()
+    srv = await server(contract, options)
   })
 }
 
