@@ -51,9 +51,9 @@ test.cb('returns headers', t => {
   }, res => {
     t.is(res.statusCode, 200)
     t.deepEqual(
-        R.pick(['x-request-id'], res.headers),
-        { 'x-request-id': '12345' }
-      )
+      R.pick(['x-request-id'], res.headers),
+      { 'x-request-id': '12345' }
+    )
     t.end()
   })
 })

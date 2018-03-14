@@ -29,19 +29,19 @@
   },
   "homepage": "https://uldissturms.github.io",
   "devDependencies": {
-    "ava": "^0.23.0",
-    "concat-stream": "^1.5.2",
-    "nyc": "^11.0.3",
-    "standard": "^10.0.0"
+    "ava": "^0.25.0",
+    "concat-stream": "^1.6.1",
+    "nyc": "^11.6.0",
+    "standard": "^11.0.0"
   },
   "dependencies": {
     "blue-tape": "^1.0.0",
-    "boom": "^7.0.0",
-    "commander": "^2.9.0",
+    "boom": "^7.2.0",
+    "commander": "^2.15.0",
     "hapi": "^16.0.1",
-    "joi": "^12.0.0",
-    "nock": "^9.0.2",
-    "node-fetch": "^2.0.0",
-    "ramda": "^0.23.0"
+    "joi": "^13.1.2",
+    "nock": "^9.2.3",
+    "node-fetch": "^2.1.1",
+    "ramda": "^0.25.0"
   }
 }

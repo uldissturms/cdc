@@ -26,7 +26,7 @@ const requireUncached = module => {
 
 module.exports.load = path => {
   const loaded = requireUncached(path)
-  const contracts = R.unless(R.isArrayLike, R.of, loaded)
+  const contracts = R.unless(Array.isArray, R.of, loaded)
   return R.map(setDefaults, contracts)
 }
 
