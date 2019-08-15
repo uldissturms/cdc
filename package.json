@@ -32,7 +32,7 @@
     "ava": "^0.25.0",
     "concat-stream": "^2.0.0",
     "nyc": "^12.0.1",
-    "standard": "^11.0.0"
+    "standard": "^13.1.0"
   },
   "dependencies": {
     "blue-tape": "^1.0.0",
